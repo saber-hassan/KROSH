@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KROSH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="shell">
+
+  <header class="masthead">
+    <h1>Krosh</h1>
+    <p class="strap">Checkers against classical search</p>
+  </header>
+
+  <main class="stage">
+
+    <section class="board-area">
+      <div class="board-frame">
+        <div id="board" class="board" role="grid" aria-label="Checkers board"></div>
+      </div>
+      <p id="status" class="status">Choose an opponent to begin.</p>
+      <p id="message" class="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <aside class="rail">
+
+      <section class="panel setup" id="setup">
+        <h2>New game</h2>
+
+        <div class="field">
+          <span class="field-name">Opponent</span>
+          <div class="choices" id="mode-choices">
+            <button class="chip is-on" data-mode="ai">Computer</button>
+            <button class="chip" data-mode="human">Second player</button>
+          </div>
+        </div>
+
+        <div class="field" id="engine-field">
+          <span class="field-name">Engine</span>
+          <div class="choices" id="engine-choices">
+            {% for name in engines %}
+            <button class="chip{% if name == 'greedy' %} is-on{% endif %}" data-engine="{{ name }}">{{ name }}</button>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="field" id="colour-field">
+          <span class="field-name">You play</span>
+          <div class="choices" id="colour-choices">
+            <button class="chip is-on" data-colour="red">Red, moving first</button>
+            <button class="chip" data-colour="white">White, moving second</button>
+          </div>
+        </div>
+
+        <button id="start" class="primary">Start game</button>
+      </section>
+
+      <section class="panel" id="live" hidden>
+        <div class="players">
+          <p id="label-red" class="player red">Red</p>
+          <p id="label-white" class="player white">White</p>
+        </div>
+
+        <div class="material">
+          <div class="material-row">
+            <span class="swatch red"></span>
+            <span id="count-red" class="tally">12 men, 0 kings</span>
+          </div>
+          <div class="material-row">
+            <span class="swatch white"></span>
+            <span id="count-white" class="tally">12 men, 0 kings</span>
+          </div>
+        </div>
+
+        <h2>Last search</h2>
+        <dl id="telemetry" class="telemetry">
+          <div><dt>Move</dt><dd id="t-move">—</dd></div>
+          <div><dt>Score</dt><dd id="t-score">—</dd></div>
+          <div><dt>Depth</dt><dd id="t-depth">—</dd></div>
+          <div><dt>Nodes</dt><dd id="t-nodes">—</dd></div>
+          <div><dt>Time</dt><dd id="t-time">—</dd></div>
+          <div><dt>Rate</dt><dd id="t-rate">—</dd></div>
+        </dl>
+
+        <h2>Moves</h2>
+        <ol id="history" class="history"><li class="empty">No moves yet.</li></ol>
+
+        <div class="actions">
+          <button id="undo" class="ghost">Undo</button>
+          <button id="restart" class="ghost">Restart</button>
+          <button id="newgame" class="ghost">Change opponent</button>
+        </div>
+      </section>
+
+    </aside>
+  </main>
+
+  <footer class="footnote">
+    <p>Captures are compulsory. Play a multi-jump by clicking each landing square in turn.</p>
+  </footer>
+
+</div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
