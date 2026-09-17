@@ -72,7 +72,7 @@ html, body {
 .board-frame {
   display: inline-block;
   padding: 14px;
-  background: linear-gradient(160deg, #E8927C, #D67760);
+  background: linear-gradient(160deg, #6B4423, #4A2F1A);
   border-radius: 3px;
   box-shadow: 0 1px 0 #e4e8e2, 0 14px 28px -18px rgba(12, 20, 16, 0.85);
 }
