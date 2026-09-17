@@ -48,7 +48,7 @@ def test_new_game_returns_an_opening_position(client):
 
 def test_human_vs_human_has_no_engine(client):
     _, state = new_game(client, mode="human")
-    assert state["labels"]["white"] == "WHITE: Human"
+    assert state["labels"]["white"] == "Player 2: Human"
 
 
 def test_playing_white_means_the_engine_opens(client):
