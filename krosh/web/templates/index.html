@@ -37,8 +37,14 @@
           <span class="field-name">Opponent</span>
           <div class="choices" id="mode-choices">
             <button class="chip is-on" data-mode="ai">Computer</button>
-            <button class="chip" data-mode="human">Second player</button>
+            <button class="chip" data-mode="human">Human vs Human</button>
           </div>
+        </div>
+
+        <div class="field disabled" id="names-field" hidden>
+          <span class="field-name">Player names</span>
+          <input type="text" id="p1-name" class="name-input" maxlength="20" placeholder="Player 1">
+          <input type="text" id="p2-name" class="name-input" maxlength="20" placeholder="Player 2">
         </div>
 
         <div class="field" id="engine-field">
@@ -53,8 +59,8 @@
         <div class="field" id="colour-field">
           <span class="field-name">You play</span>
           <div class="choices" id="colour-choices">
-            <button class="chip is-on" data-colour="red">Red, moving first</button>
-            <button class="chip" data-colour="white">White, moving second</button>
+            <button class="chip is-on" data-colour="red">Light, moving first</button>
+            <button class="chip" data-colour="white">Dark, moving second</button>
           </div>
         </div>
 
@@ -63,8 +69,8 @@
 
       <section class="panel" id="live" hidden>
         <div class="players">
-          <p id="label-red" class="player red">Red</p>
-          <p id="label-white" class="player white">White</p>
+          <p id="label-red" class="player red">Dark</p>
+          <p id="label-white" class="player white">Light</p>
         </div>
 
         <div class="material">

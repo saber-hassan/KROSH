@@ -14,7 +14,7 @@ const CROWN = `<svg class="crown" viewBox="0 0 24 15" aria-hidden="true">
 
 let gameId = null;
 let busy = false;
-let setup = { mode: "ai", engine: "greedy", colour: "red" };
+let setup = { mode: "ai", engine: "greedy", colour: "red", p1Name: "", p2Name: "" };
 
 /* ------------------------------------------------------------ network -- */
 async function api(path, body) {
@@ -190,6 +190,8 @@ async function startGame() {
       mode: setup.mode,
       engine: setup.engine,
       human_colour: setup.colour,
+      p1_name: (document.getElementById("p1-name")?.value || "").trim(),
+      p2_name: (document.getElementById("p2-name")?.value || "").trim(),
     };
     const data = await api("/api/game", payload);
     gameId = data.game_id;
@@ -233,6 +235,9 @@ function wireChoice(containerId, key, attribute) {
       const versusHuman = setup.mode === "human";
       document.getElementById("engine-field").classList.toggle("disabled", versusHuman);
       document.getElementById("colour-field").classList.toggle("disabled", versusHuman);
+      const namesField = document.getElementById("names-field");
+      namesField.hidden = !versusHuman;
+      namesField.classList.toggle("disabled", !versusHuman);
     }
   });
 }

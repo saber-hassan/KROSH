@@ -2,12 +2,12 @@
    card-table baize, bone squares, oxblood and ivory pieces, brass crowns. */
 
 :root {
-  --baize:      #1f3a2e;
-  --baize-lift: #27493a;
-  --bone:       #d8cfbc;
-  --bone-lift:  #e3dbca;
-  --oxblood:    #8c2f26;
-  --oxblood-hi: #a83e33;
+  --baize:      #B08968;
+  --baize-lift: #C9A17F;
+  --bone:       #F0DCB4;
+  --bone-lift:  #F7E8C7;
+  --oxblood:    #2C3E50;
+  --oxblood-hi: #3D5165;
   --ivory:      #ede6d6;
   --ivory-sh:   #c4bba6;
   --brass:      #b08d3f;
@@ -72,7 +72,7 @@ html, body {
 .board-frame {
   display: inline-block;
   padding: 14px;
-  background: linear-gradient(160deg, #3c2f25, #241b15);
+  background: linear-gradient(160deg, #6B4423, #4A2F1A);
   border-radius: 3px;
   box-shadow: 0 1px 0 #e4e8e2, 0 14px 28px -18px rgba(12, 20, 16, 0.85);
 }
@@ -126,13 +126,13 @@ html, body {
 }
 
 .piece.red {
-  background: radial-gradient(circle at 34% 28%, var(--oxblood-hi), var(--oxblood) 62%);
-  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.32), 0 2px 4px rgba(0, 0, 0, 0.4);
+  background: radial-gradient(circle at 34% 28%, #fbf7ec, var(--ivory) 62%);
+  box-shadow: inset 0 -3px 0 var(--ivory-sh), 0 2px 4px rgba(0, 0, 0, 0.35);
 }
 
 .piece.white {
-  background: radial-gradient(circle at 34% 28%, #fbf7ec, var(--ivory) 62%);
-  box-shadow: inset 0 -3px 0 var(--ivory-sh), 0 2px 4px rgba(0, 0, 0, 0.35);
+  background: radial-gradient(circle at 34% 28%, var(--oxblood-hi), var(--oxblood) 62%);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.32), 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .piece.ghost { opacity: 0.45; }
@@ -295,8 +295,8 @@ button:focus-visible,
   flex: none;
 }
 
-.swatch.red { background: var(--oxblood); }
-.swatch.white { background: var(--ivory); border: 1px solid var(--ivory-sh); }
+.swatch.red { background: var(--ivory); border: 1px solid var(--ivory-sh); }
+.swatch.white { background: var(--oxblood); }
 
 .tally {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
@@ -367,3 +367,21 @@ button:focus-visible,
 }
 
 .footnote p { margin: 0; }
+
+/* Human vs Human name inputs */
+.name-input {
+  display: block;
+  width: 100%;
+  padding: 0.4rem 0.55rem;
+  margin-top: 0.35rem;
+  font: inherit;
+  font-size: 0.9rem;
+  border: 1px solid var(--rule);
+  background: var(--pad);
+  color: var(--ink);
+}
+
+.name-input:focus {
+  outline: 2px solid var(--brass);
+  outline-offset: 1px;
+}

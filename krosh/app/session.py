@@ -44,6 +44,8 @@ class GameSession:
     history: List[HistoryEntry] = field(default_factory=list)
     last_result: Optional[SearchResult] = None
     message: str = ""
+    red_name: str = ""
+    white_name: str = ""
 
     # ------------------------------------------------------------------
     # Turn ownership
@@ -64,17 +66,21 @@ class GameSession:
         outcome = self.state.result()
         if outcome == DRAW:
             return "Draw - 40 moves without a capture"
+        red = (self.red_name.strip() or "Player 1")
+        white = (self.white_name.strip() or "Player 2")
         if outcome == RED_WINS:
-            return "RED wins"
+            return f"{red} wins"
         if outcome == WHITE_WINS:
-            return "WHITE wins"
-        side = "RED" if self.state.turn == RED else "WHITE"
+            return f"{white} wins"
+        side = red if self.state.turn == RED else white
         who = "your move" if self.is_human_turn else "thinking..."
         return f"{side} - {who}"
 
     def side_label(self, player: int) -> str:
         engine = self.controllers[player]
-        name = "RED" if player == RED else "WHITE"
+        custom = self.red_name if player == RED else self.white_name
+        default = "Player 1" if player == RED else "Player 2"
+        name = custom.strip() or default
         return f"{name}: {'Human' if engine is HUMAN else engine.name}"
 
     # ------------------------------------------------------------------
@@ -209,8 +215,9 @@ class GameSession:
         return self.state.counts()
 
     @classmethod
-    def human_vs_human(cls) -> "GameSession":
-        return cls(controllers={RED: HUMAN, WHITE: HUMAN})
+    def human_vs_human(cls, red_name: str = "", white_name: str = "") -> "GameSession":
+        return cls(controllers={RED: HUMAN, WHITE: HUMAN},
+                   red_name=red_name, white_name=white_name)
 
     @classmethod
     def human_vs_ai(cls, engine: Engine, human_plays: int = RED) -> "GameSession":

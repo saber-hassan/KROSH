@@ -111,7 +111,9 @@ def create_app() -> Flask:
                 return jsonify({"error": f"unknown engine '{name}'"}), 400
             session = GameSession.human_vs_ai(ENGINES[name](seed=0), human_plays=colour)
         else:
-            session = GameSession.human_vs_human()
+            p1 = str(payload.get("p1_name", "")).strip()[:20]
+            p2 = str(payload.get("p2_name", "")).strip()[:20]
+            session = GameSession.human_vs_human(red_name=p1, white_name=p2)
 
         game_id = uuid.uuid4().hex
         games[game_id] = session
