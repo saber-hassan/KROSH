@@ -180,3 +180,62 @@ def test_greedy_outperforms_random():
     """The floor check: if this fails, the evaluation sign is wrong."""
     tally = play_series(GreedyEngine(seed=1), RandomEngine(seed=2), games=120)
     assert tally["a_score"] > 0.58
+
+# ------------------------------------------------------------------
+# Minimax
+# ------------------------------------------------------------------
+from krosh.engines import MinimaxEngine
+
+
+def test_minimax_returns_a_legal_move_from_start():
+    state = GameState()
+    eng = MinimaxEngine(depth=2, seed=0)
+    result = eng.search(state)
+    assert result.move in state.legal_moves()
+    assert result.nodes > 0
+    assert result.depth == 2
+
+
+def test_minimax_depth1_matches_greedy_on_start():
+    """Depth-1 negamax is algorithmically identical to Greedy."""
+    from krosh.engines import GreedyEngine
+    state1 = GameState()
+    state2 = GameState()
+    mm = MinimaxEngine(depth=1, seed=42)
+    gr = GreedyEngine(seed=42)
+    mm_res = mm.search(state1)
+    gr_res = gr.search(state2)
+    assert mm_res.score == gr_res.score
+
+
+def test_minimax_node_count_grows_with_depth():
+    state = GameState()
+    n2 = MinimaxEngine(depth=2, seed=0).search(state).nodes
+    n3 = MinimaxEngine(depth=3, seed=0).search(state).nodes
+    n4 = MinimaxEngine(depth=4, seed=0).search(state).nodes
+    assert n2 < n3 < n4, f"nodes should grow: {n2} < {n3} < {n4}"
+
+
+def test_minimax_no_moves_returns_none():
+    """When there are no legal moves the side to move has lost."""
+    from krosh.core.constants import WHITE
+    from krosh.core.state import GameState
+    # Empty board with only opponent pieces: turn player has no move.
+    state = GameState(board=[0] * 32, turn=1)  # red to move, no pieces
+    eng = MinimaxEngine(depth=3, seed=0)
+    result = eng.search(state)
+    assert result.move is None
+
+
+def test_minimax_beats_random_head_to_head():
+    """Minimax@2 should convincingly beat Random over a small series."""
+    from krosh.core.constants import RED_WINS
+    from krosh.engines import MinimaxEngine, RandomEngine, play_game
+    wins = 0
+    for seed in range(6):
+        mm = MinimaxEngine(depth=2, seed=seed)
+        rd = RandomEngine(seed=seed + 100)
+        result = play_game(mm, rd)  # minimax plays red
+        if result.outcome == RED_WINS:
+            wins += 1
+    assert wins >= 4, f"minimax@2 only won {wins}/6 vs random"
