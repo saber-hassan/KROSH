@@ -65,16 +65,16 @@ class GameSession:
         if outcome == DRAW:
             return "Draw - 40 moves without a capture"
         if outcome == RED_WINS:
-            return "RED wins"
+            return "DARK wins"
         if outcome == WHITE_WINS:
-            return "WHITE wins"
-        side = "RED" if self.state.turn == RED else "WHITE"
+            return "LIGHT wins"
+        side = "DARK" if self.state.turn == RED else "LIGHT"
         who = "your move" if self.is_human_turn else "thinking..."
         return f"{side} - {who}"
 
     def side_label(self, player: int) -> str:
         engine = self.controllers[player]
-        name = "RED" if player == RED else "WHITE"
+        name = "DARK" if player == RED else "LIGHT"
         return f"{name}: {'Human' if engine is HUMAN else engine.name}"
 
     # ------------------------------------------------------------------
