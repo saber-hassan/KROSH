@@ -44,8 +44,8 @@ def test_human_can_play_white():
 
 def test_side_labels():
     s = GameSession.human_vs_ai(GreedyEngine())
-    assert s.side_label(RED) == "RED: Human"
-    assert s.side_label(WHITE) == "WHITE: greedy"
+    assert s.side_label(RED) == "Player 1: Human"
+    assert s.side_label(WHITE) == "Player 2: greedy"
 
 
 # --------------------------------------------------------- selection ----
@@ -216,7 +216,7 @@ def test_status_reports_the_winner():
     state = mk(WHITE, r4c3=RED_MAN)      # WHITE has nothing left
     s = session_with(state)
     assert s.is_over
-    assert "RED wins" in s.status_line()
+    assert "Player 1 wins" in s.status_line()
 
 
 def test_clicks_are_ignored_once_the_game_is_over():
