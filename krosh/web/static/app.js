@@ -190,8 +190,8 @@ async function startGame() {
       mode: setup.mode,
       engine: setup.engine,
       human_colour: setup.colour,
-      p1_name: document.getElementById("p1-name").value.trim(),
-      p2_name: document.getElementById("p2-name").value.trim(),
+      p1_name: (document.getElementById("p1-name")?.value || "").trim(),
+      p2_name: (document.getElementById("p2-name")?.value || "").trim(),
     };
     const data = await api("/api/game", payload);
     gameId = data.game_id;
