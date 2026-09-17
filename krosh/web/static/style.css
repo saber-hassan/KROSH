@@ -367,3 +367,21 @@ button:focus-visible,
 }
 
 .footnote p { margin: 0; }
+
+/* Human vs Human name inputs */
+.name-input {
+  display: block;
+  width: 100%;
+  padding: 0.4rem 0.55rem;
+  margin-top: 0.35rem;
+  font: inherit;
+  font-size: 0.9rem;
+  border: 1px solid var(--rule);
+  background: var(--pad);
+  color: var(--ink);
+}
+
+.name-input:focus {
+  outline: 2px solid var(--brass);
+  outline-offset: 1px;
+}
