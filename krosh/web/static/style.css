@@ -2,12 +2,12 @@
    card-table baize, bone squares, oxblood and ivory pieces, brass crowns. */
 
 :root {
-  --baize:      #1f3a2e;
-  --baize-lift: #27493a;
-  --bone:       #d8cfbc;
-  --bone-lift:  #e3dbca;
-  --oxblood:    #8c2f26;
-  --oxblood-hi: #a83e33;
+  --baize:      #B08968;
+  --baize-lift: #C9A17F;
+  --bone:       #F0DCB4;
+  --bone-lift:  #F7E8C7;
+  --oxblood:    #2C3E50;
+  --oxblood-hi: #3D5165;
   --ivory:      #ede6d6;
   --ivory-sh:   #c4bba6;
   --brass:      #b08d3f;
@@ -72,7 +72,7 @@ html, body {
 .board-frame {
   display: inline-block;
   padding: 14px;
-  background: linear-gradient(160deg, #3c2f25, #241b15);
+  background: linear-gradient(160deg, #E8927C, #D67760);
   border-radius: 3px;
   box-shadow: 0 1px 0 #e4e8e2, 0 14px 28px -18px rgba(12, 20, 16, 0.85);
 }
