@@ -126,13 +126,13 @@ html, body {
 }
 
 .piece.red {
-  background: radial-gradient(circle at 34% 28%, var(--oxblood-hi), var(--oxblood) 62%);
-  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.32), 0 2px 4px rgba(0, 0, 0, 0.4);
+  background: radial-gradient(circle at 34% 28%, #fbf7ec, var(--ivory) 62%);
+  box-shadow: inset 0 -3px 0 var(--ivory-sh), 0 2px 4px rgba(0, 0, 0, 0.35);
 }
 
 .piece.white {
-  background: radial-gradient(circle at 34% 28%, #fbf7ec, var(--ivory) 62%);
-  box-shadow: inset 0 -3px 0 var(--ivory-sh), 0 2px 4px rgba(0, 0, 0, 0.35);
+  background: radial-gradient(circle at 34% 28%, var(--oxblood-hi), var(--oxblood) 62%);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.32), 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .piece.ghost { opacity: 0.45; }
@@ -295,8 +295,8 @@ button:focus-visible,
   flex: none;
 }
 
-.swatch.red { background: var(--oxblood); }
-.swatch.white { background: var(--ivory); border: 1px solid var(--ivory-sh); }
+.swatch.red { background: var(--ivory); border: 1px solid var(--ivory-sh); }
+.swatch.white { background: var(--oxblood); }
 
 .tally {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
