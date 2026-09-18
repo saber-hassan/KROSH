@@ -8,7 +8,6 @@ from .alphabeta import AlphaBetaEngine
 from .match import MatchResult, play_game, play_series
 
 ENGINES = {
-    "random": RandomEngine,
     "greedy": GreedyEngine,
     "minimax": MinimaxEngine,
     "alphabeta": AlphaBetaEngine,
