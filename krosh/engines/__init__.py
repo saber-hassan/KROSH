@@ -5,17 +5,19 @@ from .evaluate import (
 from .greedy import GreedyEngine, RandomEngine
 from .minimax import MinimaxEngine
 from .alphabeta import AlphaBetaEngine
+from .mcts import MCTSEngine
 from .match import MatchResult, play_game, play_series
 
 ENGINES = {
     "greedy": GreedyEngine,
     "minimax": MinimaxEngine,
     "alphabeta": AlphaBetaEngine,
+    "mcts": MCTSEngine,
 }
 
 __all__ = [
     "Engine", "SearchResult", "DEFAULT_WEIGHTS", "WIN_SCORE", "Weights",
     "evaluate", "material_balance", "GreedyEngine", "RandomEngine",
-    "MinimaxEngine", "AlphaBetaEngine", "ENGINES",
+    "MinimaxEngine", "AlphaBetaEngine", "MCTSEngine", "ENGINES",
     "MatchResult", "play_game", "play_series",
 ]
