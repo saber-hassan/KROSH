@@ -77,11 +77,12 @@ class GameSession:
         return f"{side} - {who}"
 
     def side_label(self, player: int) -> str:
+        slot = "Player 1" if player == RED else "Player 2"
         engine = self.controllers[player]
+        if engine is not HUMAN:
+            return f"{slot}: {engine.name} (AI)"
         custom = self.red_name if player == RED else self.white_name
-        default = "Player 1" if player == RED else "Player 2"
-        name = custom.strip() or default
-        return f"{name}: {'Human' if engine is HUMAN else engine.name}"
+        return f"{slot}: {custom.strip() or 'Human'}"
 
     # ------------------------------------------------------------------
     # Human input

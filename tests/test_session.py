@@ -45,7 +45,7 @@ def test_human_can_play_white():
 def test_side_labels():
     s = GameSession.human_vs_ai(GreedyEngine())
     assert s.side_label(RED) == "Player 1: Human"
-    assert s.side_label(WHITE) == "Player 2: greedy"
+    assert s.side_label(WHITE) == "Player 2: greedy (AI)"
 
 
 # --------------------------------------------------------- selection ----
