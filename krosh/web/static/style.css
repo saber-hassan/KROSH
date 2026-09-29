@@ -148,28 +148,69 @@ html, body {
   outline-offset: 3px;
 }
 
-/* move hints */
+/* move hints -- polished target indicators */
 .hint {
   position: absolute;
-  width: 26%;
-  height: 26%;
+  width: 42%;
+  height: 42%;
   border-radius: 50%;
-  background: var(--brass);
+  background: rgba(107, 68, 35, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(107, 68, 35, 0.35);
   z-index: 2;
+  pointer-events: none;
+  transition: transform 120ms ease-out, background 120ms ease-out;
 }
 
 .hint.over-piece {
-  width: 84%;
-  height: 84%;
-  background: none;
-  border: 3px solid var(--brass);
+  width: 90%;
+  height: 90%;
+  background: transparent;
+  border: 3px solid rgba(107, 68, 35, 0.55);
+  box-shadow: none;
 }
 
-.cell.playable:hover .hint { transform: scale(1.18); }
-.hint { transition: transform 90ms ease-out; }
+.cell.playable:hover .hint {
+  transform: scale(1.12);
+  background: rgba(107, 68, 35, 0.42);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .hint { transition: none; }
+}
+
+/* jumpable-piece pulse */
+@keyframes krosh-pulse {
+  0%   { transform: scale(1.00); }
+  50%  { transform: scale(1.10); }
+  100% { transform: scale(1.00); }
+}
+
+.cell.can-capture .piece {
+  animation: krosh-pulse 1.15s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(224, 120, 60, 0.55));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell.can-capture .piece { animation: none; }
+}
+
+/* king crown -- cleaner styling per side */
+.piece.red .crown {
+  fill: #2C3E50;
+  stroke: #2C3E50;
+  stroke-width: 1.2;
+}
+
+.piece.white .crown {
+  fill: #F7E8C7;
+  stroke: #F7E8C7;
+  stroke-width: 1.2;
+}
+
+.crown {
+  width: 52%;
+  height: auto;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
 }
 
 /* ------------------------------------------------------------ status -- */

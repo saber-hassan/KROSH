@@ -149,6 +149,14 @@ class GameSession:
         """(row, col) of every clickable destination."""
         return [rc(s) for s in self.next_squares()]
 
+    def jumpable_squares(self) -> List[tuple]:
+        """(row, col) of every own piece that currently has a legal capture."""
+        if not self.is_human_turn:
+            return []
+        legal = self.state.legal_moves()
+        capture_origins = {m.path[0] for m in legal if m.is_capture}
+        return [rc(s) for s in capture_origins]
+
     def clear_selection(self) -> None:
         self.selected = None
         self.partial_path = []

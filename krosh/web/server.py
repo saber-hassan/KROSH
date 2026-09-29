@@ -63,6 +63,7 @@ def serialise(session: GameSession) -> dict:
         "selected": list(rc(session.selected)) if session.selected is not None else None,
         "partial_path": [list(rc(s)) for s in session.partial_path],
         "highlights": [list(cell) for cell in session.highlights()],
+        "jumpable": [list(cell) for cell in session.jumpable_squares()],
         "counts": session.counts(),
         "labels": {
             "red": session.side_label(RED),
