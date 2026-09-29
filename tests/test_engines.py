@@ -239,3 +239,52 @@ def test_minimax_beats_random_head_to_head():
         if result.outcome == RED_WINS:
             wins += 1
     assert wins >= 4, f"minimax@2 only won {wins}/6 vs random"
+
+# ------------------------------------------------------------------
+# Hybrid (Phase 6)
+# ------------------------------------------------------------------
+from krosh.engines import HybridEngine
+
+
+def test_hybrid_classifies_opening_from_start():
+    """From the initial position, hybrid must pick the opening phase."""
+    state = GameState()
+    hy = HybridEngine(seed=0)
+    assert hy._phase_of(state) == "opening"
+
+
+def test_hybrid_returns_a_legal_move_from_start():
+    state = GameState()
+    hy = HybridEngine(seed=0, opening_depth=3)  # keep test fast
+    result = hy.search(state)
+    assert result.move in state.legal_moves()
+    assert result.extra["phase"] == "opening"
+
+
+def test_hybrid_switches_phase_on_small_boards():
+    """With only 6 pieces on the board, hybrid should be in the endgame."""
+    from krosh.core.constants import RED_MAN, WHITE_MAN
+    board = [0] * 32
+    # Put 3 red and 3 white pieces on
+    board[0] = RED_MAN
+    board[1] = RED_MAN
+    board[2] = RED_MAN
+    board[29] = WHITE_MAN
+    board[30] = WHITE_MAN
+    board[31] = WHITE_MAN
+    state = GameState(board=board, turn=1)
+    hy = HybridEngine(seed=0, endgame_rollouts=50)  # cheap MCTS for the test
+    assert hy._phase_of(state) == "endgame"
+    result = hy.search(state)
+    assert result.extra["phase"] == "endgame"
+    assert result.extra["delegate"] in ("Monte Carlo", "mcts")
+
+
+def test_hybrid_reports_stats():
+    state = GameState()
+    hy = HybridEngine(seed=0, opening_depth=3)
+    result = hy.search(state)
+    assert result.nodes > 0
+    assert result.time_ms >= 0
+    assert "phase" in result.extra
+    assert "delegate" in result.extra
