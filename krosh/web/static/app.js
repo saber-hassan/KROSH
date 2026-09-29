@@ -9,8 +9,10 @@ const setupEl = document.getElementById("setup");
 const liveEl = document.getElementById("live");
 const historyEl = document.getElementById("history");
 
-const CROWN = `<svg class="crown" viewBox="0 0 24 15" aria-hidden="true">
-  <path d="M1 14V2l5 5 6-6 6 6 5-5v12z"/></svg>`;
+const CROWN = `<svg class="crown" viewBox="0 0 24 18" aria-hidden="true">
+  <path d="M2 16V4l4 4 3-4 3 4 3-4 3 4 4-4v12z" stroke-linejoin="round"/>
+  <circle cx="12" cy="11" r="1.2"/>
+</svg>`;
 
 let gameId = null;
 let busy = false;
@@ -57,6 +59,7 @@ function draw(state) {
     state.last_move.captures.forEach(([r, c]) => taken.add(`${r},${c}`));
   }
   const hints = new Set(state.highlights.map(([r, c]) => `${r},${c}`));
+  const jumpable = new Set((state.jumpable || []).map(([r, c]) => `${r},${c}`));
   const chosen = state.selected ? `${state.selected[0]},${state.selected[1]}` : null;
   const ghostAt = state.partial_path.length
     ? state.partial_path[state.partial_path.length - 1]
@@ -71,6 +74,7 @@ function draw(state) {
       cell.className = "cell" + ((row + col) % 2 ? " dark" : "");
       if (trail.has(key)) cell.classList.add("trail");
       if (taken.has(key)) cell.classList.add("taken");
+      if (jumpable.has(key)) cell.classList.add("can-capture");
       if (chosen === key) cell.classList.add("chosen");
       const ownPiece = state.turn === "red" ? value > 0 : value < 0;
       if (hints.has(key) || (state.is_human_turn && ownPiece)) {
