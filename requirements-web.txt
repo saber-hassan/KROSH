@@ -1,0 +1,6 @@
+# Server-only dependencies. pygame-ce is deliberately absent: it compiles from
+# source, takes minutes to build, and the desktop frontend cannot run on a
+# headless host anyway.
+numpy>=1.24
+flask>=3.0
+gunicorn>=21.2

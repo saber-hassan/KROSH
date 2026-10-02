@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: krosh
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-web.txt
+    # ONE worker only -- games live in process memory, so a second worker
+    # would not recognise a game started on the first. Threads are fine:
+    # they share memory. The long timeout allows deep alpha-beta and MCTS.
+    startCommand: gunicorn --workers 1 --threads 4 --timeout 120 --bind 0.0.0.0:$PORT "krosh.web:create_app()"
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: KROSH_IDLE_TIMEOUT
+        value: "3600"
+      - key: KROSH_MAX_GAMES
+        value: "500"
