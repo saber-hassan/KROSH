@@ -33,32 +33,6 @@ the side panel carries the live search payload from the last AI move.*
 
 ---
 
-## Quick start
-
-On Arch and other PEP 668 distributions, use a virtual environment:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-Then:
-
-```bash
-python run_web.py                   # play in a browser at 127.0.0.1:5000
-python main.py                      # play in a desktop window
-python -m pytest tests/ -q          # 131 tests
-python scripts/perft_bench.py --depth 8
-python scripts/arena.py --games 100
-```
-
-`requirements.txt` includes `pygame-ce`, not `pygame` — upstream pygame has no
-Python 3.14 support and compiles to a build with a broken font module.
-`requirements-web.txt` is the server-only subset used for deployment.
-
----
-
 ## Layout
 
 ```
@@ -268,20 +242,6 @@ the total is capped, so a hosted instance does not leak memory.
 
 Deployment runs under gunicorn with **one worker** — games are held in process
 memory, so a second worker would not recognise a game started on the first.
-
----
-
-## Status
-
-- [x] Rules core — apply/undo, compulsory captures, perft verification
-- [x] Evaluation function and Greedy agent
-- [x] Minimax with search-stat instrumentation
-- [x] Alpha-Beta — ordering, transposition table, quiescence, iterative deepening
-- [x] MCTS — UCT, evaluation-backed rollouts, seeded
-- [x] Hybrid phase-switching engine
-- [x] Pygame desktop frontend and Flask browser frontend
-- [x] Online deployment
-- [ ] Full benchmark suite and comparison report
 
 ---
 
