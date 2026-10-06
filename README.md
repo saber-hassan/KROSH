@@ -31,19 +31,6 @@ the side panel carries the live search payload from the last AI move.*
 
 *Two players at one screen, with names shown as Player 1 and Player 2.*
 
----|---|
-| ![New game menu](docs/screenshots/menu.png) | ![Mid-game with telemetry](docs/screenshots/gameplay.png) |
-| Choosing an opponent and colour | Legal-move hints and the live search panel |
-
-![Search telemetry](docs/screenshots/telemetry.png)
-
-*Live search statistics after an Alpha-Beta move: chosen move, score, depth
-reached, nodes visited, elapsed time and nodes per second.*
-
-![Pygame desktop build](docs/screenshots/desktop.png)
-
-*The Pygame desktop frontend, running the same engines over the same controller.*
-
 ---
 
 ## Quick start
